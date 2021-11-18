@@ -1,0 +1,43 @@
+{
+	"project_info": {
+		"project_number": "491506301170",
+		"firebase_url": "https://agroexplore.firebaseio.com",
+		"project_id": "agroexplore",
+		"storage_bucket": "agroexplore.appspot.com"
+	},
+	"client": [
+		{
+			"client_info": {
+				"mobilesdk_app_id": "1:491506301170:android:be00be1c7126a16b95786b",
+				"android_client_info": {
+					"package_name": "com.atech.agroexplore"
+				}
+			},
+			"oauth_client": [
+				{
+					"client_id": "491506301170-iga5bal3cjkqpqgs22vb0a7vhqj7r1gg.apps.googleusercontent.com",
+					"client_type": 3
+				}
+			],
+			"api_key": [
+				{
+					"current_key": "AIzaSyAHpPZi2II1_kQd6JbT__yzrD-4-LYpy-k"
+				},
+				{
+					"current_key": "AIzaSyD76ZjDdH53LLmDVdnakYBPzsm0MGc4S7E"
+				}
+			],
+			"services": {
+				"appinvite_service": {
+					"other_platform_oauth_client": [
+						{
+							"client_id": "491506301170-iga5bal3cjkqpqgs22vb0a7vhqj7r1gg.apps.googleusercontent.com",
+							"client_type": 3
+						}
+					]
+				}
+			}
+		}
+	],
+	"configuration_version": "1"
+}

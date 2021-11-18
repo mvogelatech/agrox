@@ -1,0 +1,1093 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.9.3-alpha1" last-position="0,450" last-zoom="1" max-obj-count="31"
+	 default-schema="public" default-owner="postgres">
+<database name="agrodb" encoding="UTF8" lc-collate="C" lc-ctype="C" is-template="false" allow-conns="true">
+	<role name="postgres"/>
+	<tablespace name="pg_default"/>
+</database>
+
+<schema name="public" layer="0" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="user" layer="0" collapse-mode="2" max-obj-count="19" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="40" y="80"/>
+	<column name="id" not-null="true">
+		<type name="bigserial" length="0"/>
+	</column>
+	<column name="first_name" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="last_name" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="username" not-null="true">
+		<type name="text" length="0"/>
+		<comment><![CDATA[agrox will use the user mobile phone number as username in the following format 'DDNNNNNNNN']]></comment>
+	</column>
+	<column name="password" not-null="true">
+		<type name="text" length="0"/>
+		<comment><![CDATA[this will be an  auth code provided to the user and will expire in first use]]></comment>
+	</column>
+	<column name="cpf">
+		<type name="text" length="0"/>
+	</column>
+	<column name="phone_number" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="email">
+		<type name="text" length="0"/>
+	</column>
+	<column name="active" not-null="true">
+		<type name="boolean" length="0"/>
+	</column>
+	<column name="creation_date" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="access_date" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="update_date" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="yellow_threshold" not-null="true" default-value="10">
+		<type name="float" length="0"/>
+	</column>
+	<column name="red_threshold" not-null="true" default-value="31.6">
+		<type name="float" length="0"/>
+	</column>
+	<column name="fcm_token">
+		<type name="text" length="0"/>
+	</column>
+	<column name="avatar">
+		<type name="text" length="0"/>
+		<comment><![CDATA[base64 econded image, why ? because prisma does not handle bytea yet...]]></comment>
+	</column>
+	<constraint name="user_id_pk" type="pk-constr" table="public.&quot;user&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="password_un" type="uq-constr" table="public.&quot;user&quot;">
+		<columns names="password" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="username_un" type="uq-constr" table="public.&quot;user&quot;">
+		<columns names="username" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="farm" layer="0" collapse-mode="2" max-obj-count="8" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="460" y="100"/>
+	<column name="id" not-null="true">
+		<type name="bigserial" length="0"/>
+	</column>
+	<column name="cnpj">
+		<type name="text" length="0"/>
+	</column>
+	<column name="social_name">
+		<type name="text" length="0"/>
+	</column>
+	<column name="fantasy_name" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="lat">
+		<type name="double precision" length="0"/>
+	</column>
+	<column name="long">
+		<type name="double precision" length="0"/>
+	</column>
+	<column name="address_id" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<constraint name="farm_id_pk" type="pk-constr" table="public.farm">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="cnpj_un" type="uq-constr" table="public.farm">
+		<columns names="cnpj" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="social_name_un" type="uq-constr" table="public.farm">
+		<columns names="social_name" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="address" layer="0" collapse-mode="2" max-obj-count="15" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="880" y="460"/>
+	<column name="id" not-null="true">
+		<type name="bigserial" length="0"/>
+	</column>
+	<column name="street" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="city" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="number">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="km">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="postal_code">
+		<type name="text" length="0"/>
+	</column>
+	<column name="complement">
+		<type name="text" length="0"/>
+	</column>
+	<column name="neighborhood">
+		<type name="text" length="0"/>
+	</column>
+	<column name="phone_number">
+		<type name="text" length="0"/>
+	</column>
+	<column name="mobile_number">
+		<type name="text" length="0"/>
+	</column>
+	<column name="contact_name">
+		<type name="text" length="0"/>
+	</column>
+	<column name="email">
+		<type name="text" length="0"/>
+	</column>
+	<column name="state_id" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<constraint name="address_id_pk" type="pk-constr" table="public.address">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="area" layer="0" collapse-mode="2" max-obj-count="12" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="780" y="40"/>
+	<column name="id" not-null="true">
+		<type name="bigserial" length="0"/>
+	</column>
+	<column name="code" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="lat" not-null="true">
+		<type name="double precision" length="0"/>
+	</column>
+	<column name="long" not-null="true">
+		<type name="double precision" length="0"/>
+	</column>
+	<column name="coordinates">
+		<type name="json" length="0"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="zone">
+		<type name="text" length="0"/>
+	</column>
+	<column name="state_initials">
+		<type name="varchar" length="2"/>
+	</column>
+	<column name="city">
+		<type name="text" length="0"/>
+	</column>
+	<column name="farm_id" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<constraint name="area_id_pk" type="pk-constr" table="public.area">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="name_per_farm_un" type="uq-constr" table="public.area">
+		<columns names="farm_id,name" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="field" layer="0" collapse-mode="2" max-obj-count="12" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1060" y="80"/>
+	<column name="id" not-null="true">
+		<type name="bigserial" length="0"/>
+	</column>
+	<column name="code" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="area_ha" not-null="true">
+		<type name="double precision" length="0"/>
+	</column>
+	<column name="lat" not-null="true">
+		<type name="double precision" length="0"/>
+	</column>
+	<column name="long" not-null="true">
+		<type name="double precision" length="0"/>
+	</column>
+	<column name="coordinates" not-null="true">
+		<type name="json" length="0"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="event" not-null="false">
+		<type name="text" length="0"/>
+	</column>
+	<column name="image_uri">
+		<type name="text" length="0"/>
+	</column>
+	<column name="area_id" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="visiona_area_id">
+		<type name="bigint" length="0"/>
+	</column>
+	<constraint name="field_id_pk" type="pk-constr" table="public.field">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="name_per_area_un" type="uq-constr" table="public.field">
+		<columns names="name,area_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="crop" layer="0" collapse-mode="2" max-obj-count="9" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1460" y="80"/>
+	<column name="id" not-null="true">
+		<type name="bigserial" length="0"/>
+	</column>
+	<column name="crop_type" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="variety" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="sowing_date" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="expected_harvest_date" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="number" not-null="true" default-value="1">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="is_diagnosis_hired" default-value="false">
+		<type name="bool" length="0"/>
+	</column>
+	<column name="field_id" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<constraint name="crop_id_pk" type="pk-constr" table="public.crop">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="state" layer="0" collapse-mode="2" max-obj-count="7" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="860" y="820"/>
+	<column name="id" not-null="true">
+		<type name="bigserial" length="0"/>
+	</column>
+	<column name="initials" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="ibge_code">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="country_code">
+		<type name="integer" length="0"/>
+	</column>
+	<column name="area_code">
+		<type name="json" length="0"/>
+	</column>
+	<constraint name="state_id_pk" type="pk-constr" table="public.state">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="initials_un" type="uq-constr" table="public.state">
+		<columns names="initials" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="diagnosis" layer="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1480" y="380"/>
+	<column name="id" not-null="true">
+		<type name="bigserial" length="0"/>
+	</column>
+	<column name="report_date" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="affected_area_ha" not-null="true">
+		<type name="float" length="0"/>
+	</column>
+	<column name="crop_id">
+		<type name="bigint" length="0"/>
+	</column>
+	<constraint name="diagnosis_id_pk" type="pk-constr" table="public.diagnosis">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="company" layer="0" collapse-mode="2" max-obj-count="9" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1160" y="700"/>
+	<column name="id" not-null="true">
+		<type name="bigserial" length="0"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="works_with_drone" not-null="true">
+		<type name="bool" length="0"/>
+	</column>
+	<column name="works_with_plane" not-null="true">
+		<type name="bool" length="0"/>
+	</column>
+	<column name="works_with_tractor" not-null="true">
+		<type name="bool" length="0"/>
+	</column>
+	<column name="lat" not-null="true">
+		<type name="double precision" length="0"/>
+	</column>
+	<column name="long" not-null="true">
+		<type name="double precision" length="0"/>
+	</column>
+	<constraint name="company_id_pk" type="pk-constr" table="public.company">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="address_id" index="7"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="address_fk" index="1"/>
+	</customidxs>
+</table>
+
+<table name="quotation" layer="0" collapse-mode="2" max-obj-count="9" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="580" y="980"/>
+	<column name="id" not-null="true">
+		<type name="bigserial" length="0"/>
+	</column>
+	<column name="response_date">
+		<type name="date" length="0"/>
+	</column>
+	<column name="expiration_date">
+		<type name="date" length="0"/>
+	</column>
+	<column name="antecipated_price">
+		<type name="bigint" length="0"/>
+		<comment><![CDATA[Em centavos]]></comment>
+	</column>
+	<column name="cash_price">
+		<type name="bigint" length="0"/>
+		<comment><![CDATA[Em centavos]]></comment>
+	</column>
+	<column name="delayed_price">
+		<type name="bigint" length="0"/>
+		<comment><![CDATA[Em centavos]]></comment>
+	</column>
+	<constraint name="quotation_id_pk" type="pk-constr" table="public.quotation">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="company_id" index="6"/>
+		<object name="quotation_modal_package_id" index="7"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="company_fk" index="0"/>
+		<object name="quotation_modal_package_id_fk" index="2"/>
+	</customidxs>
+</table>
+
+<relationship name="drone_companies_address" type="rel1n" layer="0"
+	 src-col-pattern="{st}_{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#82cd38"
+	 src-table="public.address"
+	 dst-table="public.company"
+	 src-required="true" dst-required="false">
+	<label ref-type="name-label">
+		<position x="20.9309" y="-13.3844"/>
+	</label>
+</relationship>
+
+<relationship name="company_quotation" type="rel1n" layer="0"
+	 src-col-pattern="{st}_{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#ee9b1c"
+	 src-table="public.company"
+	 dst-table="public.quotation"
+	 src-required="true" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-14.4975" y="36.9023"/>
+	</label>
+</relationship>
+
+<table name="quotation_package" layer="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1460" y="1040"/>
+	<column name="id" not-null="true">
+		<type name="bigserial" length="0"/>
+	</column>
+	<column name="code" not-null="true">
+		<type name="bigint" length="0"/>
+	</column>
+	<column name="request_date" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="pulverization_start_date" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="pulverization_end_date" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<constraint name="quotation_package_pk" type="pk-constr" table="public.quotation_package">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="quotation_modal_package" layer="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1500" y="800"/>
+	<column name="id" not-null="true">
+		<type name="bigserial" length="0"/>
+	</column>
+	<column name="pulverization_method" not-null="true">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="quotation_modal_package_pk" type="pk-constr" table="public.quotation_modal_package">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="quotation_package_id" index="2"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="quotation_package_id_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="quotation_package_has_many_quotation_modal_package" type="rel1n" layer="0"
+	 src-col-pattern="{st}_{sc}"
+	 pk-pattern="{dt}_id_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_id_fk"
+	 custom-color="#658dfd"
+	 src-table="public.quotation_package"
+	 dst-table="public.quotation_modal_package"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="quotation_modal_package_has_many_quotation" type="rel1n" layer="0"
+	 src-col-pattern="{st}_{sc}"
+	 pk-pattern="{dt}_id_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_id_fk"
+	 custom-color="#06b826"
+	 src-table="public.quotation_modal_package"
+	 dst-table="public.quotation"
+	 src-required="true" dst-required="false"/>
+
+<table name="quotation_checkout" layer="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1120" y="1020"/>
+	<column name="id" not-null="true">
+		<type name="bigserial" length="0"/>
+	</column>
+	<column name="checkout_date" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="selected_price" not-null="true">
+		<type name="smallint" length="0"/>
+		<comment><![CDATA[0: antecipated
+1: cash
+2: delayed
+]]></comment>
+	</column>
+	<constraint name="quotation_checkout_pk" type="pk-constr" table="public.quotation_checkout">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="quotation_id" index="3"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="quotation_checkout_uq" index="2"/>
+		<object name="quotation_id_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="many_quotation_modal_package_has_many_field" type="relnn" layer="0"
+	 src-col-pattern="{sc}_{st}" dst-col-pattern="{sc}_{dt}"
+	 pk-pattern="{gt}_pk" uq-pattern="{gt}_uq"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_fk"
+	 pk-col-pattern="id"
+	 custom-color="#bdb923"
+	 src-table="public.quotation_modal_package"
+	 dst-table="public.field"
+	 src-required="false" dst-required="false"
+	 table-name="many_quotation_modal_package_has_many_field"/>
+
+<relationship name="quotation_checkout_has_one_quotation" type="rel11" layer="0"
+	 src-col-pattern="{st}_{sc}"
+	 pk-pattern="{dt}_id_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_id_fk"
+	 custom-color="#a85993"
+	 src-table="public.quotation"
+	 dst-table="public.quotation_checkout"
+	 src-required="true" dst-required="false"/>
+
+<table name="role" layer="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="20" y="1100"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="name">
+		<type name="text" length="0"/>
+	</column>
+	<constraint name="role_id_pk" type="pk-constr" table="public.role">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="unique_name" type="uq-constr" table="public.role">
+		<columns names="name" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="user_role" layer="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="20" y="760"/>
+	<column name="id" not-null="true">
+		<type name="bigserial" length="0"/>
+	</column>
+	<constraint name="user_role_pk" type="pk-constr" table="public.user_role">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="role_id" index="2"/>
+		<object name="user_id" index="1"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="role_fk" index="2"/>
+		<object name="user_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="role_has_many_user_role" type="rel1n" layer="0"
+	 src-col-pattern="{st}_{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#b45528"
+	 src-table="public.role"
+	 dst-table="public.user_role"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="user_has_many_user_role" type="rel1n" layer="0"
+	 src-col-pattern="{st}_{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#cee908"
+	 src-table="public.&quot;user&quot;"
+	 dst-table="public.user_role"
+	 src-required="true" dst-required="false">
+	<label ref-type="name-label">
+		<position x="-3.85575" y="6.71434"/>
+	</label>
+</relationship>
+
+<table name="notification" layer="0" collapse-mode="2" max-obj-count="8" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="260" y="1020"/>
+	<column name="id" not-null="true">
+		<type name="bigserial" length="0"/>
+	</column>
+	<column name="type" not-null="true">
+		<type name="smallint" length="0"/>
+		<comment><![CDATA[enum: 0-diagnosis, 1-quotation, 2-prescription, 3-message]]></comment>
+	</column>
+	<column name="body" not-null="true">
+		<type name="json" length="0"/>
+	</column>
+	<column name="sent_date" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="read_date">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="delivered_date">
+		<type name="timestamp" length="0"/>
+	</column>
+	<constraint name="notification_pk" type="pk-constr" table="public.notification">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="user_id" index="6"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="user_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="user_has_many_notification" type="rel1n" layer="0"
+	 src-col-pattern="{st}_{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#bec9e6"
+	 src-table="public.&quot;user&quot;"
+	 dst-table="public.notification"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="many_user_has_many_farm" type="relnn" layer="0"
+	 src-col-pattern="{st}_{sc}" dst-col-pattern="{dt}_{sc}"
+	 pk-pattern="{gt}_pk" uq-pattern="{gt}_uq"
+	 src-fk-pattern="{st}_fk" dst-fk-pattern="{dt}_fk"
+	 pk-col-pattern="id"
+	 custom-color="#450bd4"
+	 src-table="public.&quot;user&quot;"
+	 dst-table="public.farm"
+	 src-required="false" dst-required="false"
+	 table-name="many_user_has_many_farm"/>
+
+<table name="terms_and_conditions" layer="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="520" y="660"/>
+	<column name="id" not-null="true">
+		<type name="bigserial" length="0"/>
+	</column>
+	<column name="content" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="publish_date" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<constraint name="terms_and_conditions_pk" type="pk-constr" table="public.terms_and_conditions">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="user_accepted_terms" layer="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="520" y="420"/>
+	<column name="id" not-null="true">
+		<type name="bigserial" length="0"/>
+	</column>
+	<column name="accepted_date" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<constraint name="user_accepted_terms_pk" type="pk-constr" table="public.user_accepted_terms">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_terms_and_conditions" index="3"/>
+		<object name="id_user" index="2"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="terms_and_conditions_id_fk" index="2"/>
+		<object name="user_id_fk" index="1"/>
+	</customidxs>
+</table>
+
+<table name="plague" layer="0" collapse-mode="2" max-obj-count="7" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1840" y="1080"/>
+	<column name="id" not-null="true">
+		<type name="bigserial" length="0"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="display_name">
+		<type name="text" length="0"/>
+	</column>
+	<column name="color" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="in_use" default-value="true">
+		<type name="bool" length="0"/>
+		<comment><![CDATA[indicates if the plague information will be used on the application (sometimes a plague is not available for processing and we need to omit from the user).]]></comment>
+	</column>
+	<column name="relevance_order">
+		<type name="smallint" length="0"/>
+		<comment><![CDATA[a code indicating the importance of the plague, lower values indicates a higher importance, used for classification and displaying the plague order on the app.]]></comment>
+	</column>
+	<constraint name="plagues_pk" type="pk-constr" table="public.plague">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+	<constraint name="name_un" type="uq-constr" table="public.plague">
+		<columns names="name" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="infestation" layer="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1820" y="740"/>
+	<column name="id" not-null="true">
+		<type name="bigserial" length="0"/>
+	</column>
+	<column name="area_ha" not-null="true" default-value="0">
+		<type name="float" length="0"/>
+	</column>
+	<column name="points">
+		<type name="json" length="0"/>
+	</column>
+	<constraint name="infestation_pk" type="pk-constr" table="public.infestation">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="diagnosis_id" index="3"/>
+		<object name="plague_id" index="4"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="diagnosis_fk" index="0"/>
+		<object name="plague_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="plague_has_many_infestation" type="rel1n" layer="0"
+	 src-col-pattern="{st}_{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#67fb28"
+	 src-table="public.plague"
+	 dst-table="public.infestation"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="diagnosis_has_many_diagnosis_plague" type="rel1n" layer="0"
+	 src-col-pattern="{st}_{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#b4137d"
+	 src-table="public.diagnosis"
+	 dst-table="public.infestation"
+	 src-required="true" dst-required="false"/>
+
+<constraint name="diagnosis_plague_un" type="uq-constr" table="public.infestation">
+	<columns names="plague_id,diagnosis_id" ref-type="src-columns"/>
+</constraint>
+
+<table name="email" layer="0" collapse-mode="2" max-obj-count="2" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1800" y="100"/>
+	<column name="id" not-null="true">
+		<type name="bigserial" length="0"/>
+	</column>
+	<column name="email" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<constraint name="email_pk" type="pk-constr" table="public.email">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="prescription" layer="0" collapse-mode="2" max-obj-count="8" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1820" y="420"/>
+	<column name="id" not-null="true">
+		<type name="bigserial" length="0"/>
+	</column>
+	<column name="date" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<column name="content" not-null="true" default-value="'[]'::jsonb">
+		<type name="json" length="0"/>
+	</column>
+	<column name="pulverization_method" not-null="true">
+		<type name="smallint" length="0"/>
+		<comment><![CDATA[0 - reserved
+1 - drone
+2 - aircraft
+3 - tractor]]></comment>
+	</column>
+	<column name="author">
+		<type name="text" length="0"/>
+		<comment><![CDATA[name of the person who filled the prescription]]></comment>
+	</column>
+	<column name="phone_number">
+		<type name="text" length="0"/>
+		<comment><![CDATA[mobile phone number in the format DDNNNNNNNN]]></comment>
+	</column>
+	<constraint name="prescription_pk" type="pk-constr" table="public.prescription">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="diagnosis_id" index="6"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="diagnosis_id_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="diagnosis_has_many_prescription" type="rel1n" layer="0"
+	 src-col-pattern="{st}_{sc}"
+	 pk-pattern="{dt}_id_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_id_fk"
+	 custom-color="#386d48"
+	 src-table="public.diagnosis"
+	 dst-table="public.prescription"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="user_has_many_user_accepted_terms" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_id_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_id_fk"
+	 custom-color="#e2a827"
+	 src-table="public.&quot;user&quot;"
+	 dst-table="public.user_accepted_terms"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="terms_and_conditions_has_many_user_accepted_terms" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_id_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_id_fk"
+	 custom-color="#5bcff0"
+	 src-table="public.terms_and_conditions"
+	 dst-table="public.user_accepted_terms"
+	 src-required="true" dst-required="false"/>
+
+<table name="user_accepted_privacy_policy" layer="0" collapse-mode="2" max-obj-count="4" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="200" y="480"/>
+	<column name="id" not-null="true">
+		<type name="bigserial" length="0"/>
+	</column>
+	<column name="accepted_date" not-null="true">
+		<type name="date" length="0"/>
+	</column>
+	<constraint name="user_accepted_terms_pk_1" type="pk-constr" table="public.user_accepted_privacy_policy">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_privacy_policy" index="2"/>
+		<object name="id_user" index="3"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="privacy_policy_fk" index="1"/>
+		<object name="user_fk" index="2"/>
+	</customidxs>
+</table>
+
+<relationship name="user_has_many_user_accepted_privacy_policy" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#c04ef9"
+	 src-table="public.&quot;user&quot;"
+	 dst-table="public.user_accepted_privacy_policy"
+	 src-required="true" dst-required="false"/>
+
+<table name="privacy_policy" layer="0" collapse-mode="2" max-obj-count="3" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="440" y="840"/>
+	<column name="id" not-null="true">
+		<type name="bigserial" length="0"/>
+	</column>
+	<column name="content" not-null="true">
+		<type name="text" length="0"/>
+	</column>
+	<column name="publish_date" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<constraint name="terms_and_conditions_pk_1" type="pk-constr" table="public.privacy_policy">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="privacy_policy_has_many_user_accepted_privacy_policy" type="rel1n" layer="0"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#96568b"
+	 src-table="public.privacy_policy"
+	 dst-table="public.user_accepted_privacy_policy"
+	 src-required="true" dst-required="false"/>
+
+<table name="seed_revision" layer="0" collapse-mode="2" max-obj-count="7" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<comment><![CDATA[this table controls the data seeding on the db by creating a revision for each seed (data insertion) this is
+intended to be used with cd/ci automation for production environment]]></comment>
+	<position x="1760" y="220"/>
+	<column name="id" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="revision" not-null="true">
+		<type name="serial" length="0"/>
+	</column>
+	<column name="seeding_timestamp" not-null="true">
+		<type name="timestamp" length="0"/>
+	</column>
+	<column name="version_major">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="version_minor">
+		<type name="smallint" length="0"/>
+	</column>
+	<column name="version_patch">
+		<type name="smallint" length="0"/>
+	</column>
+	<constraint name="db_seeding_control_pk" type="pk-constr" table="public.seed_revision">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="imaging" layer="0" collapse-mode="2" max-obj-count="6" z-value="0">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="1140" y="360"/>
+	<column name="id" not-null="true">
+		<type name="bigserial" length="0"/>
+	</column>
+	<column name="directory" not-null="true">
+		<type name="text" length="0"/>
+		<comment><![CDATA[a piece of the full path imaging resource, to be merge with farm information in order to retrieve tile info.]]></comment>
+	</column>
+	<column name="processing_timestamp" not-null="true">
+		<type name="timestamp" length="0"/>
+		<comment><![CDATA[this is the date of the tiles generation by our service]]></comment>
+	</column>
+	<column name="imaging_date" not-null="true">
+		<type name="date" length="0"/>
+		<comment><![CDATA[the date flight where the imaging process took place]]></comment>
+	</column>
+	<constraint name="imaging_id_pk" type="pk-constr" table="public.imaging">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="farm_has_many_imaging" type="rel1n" layer="0"
+	 src-col-pattern="{st}_{sc}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#d33c0e"
+	 src-table="public.farm"
+	 dst-table="public.imaging"
+	 src-required="false" dst-required="false"/>
+
+<constraint name="address_id_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.address" table="public.farm">
+	<columns names="address_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="state_id_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.state" table="public.address">
+	<columns names="state_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="farm_id_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.farm" table="public.area">
+	<columns names="farm_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="area_id_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.area" table="public.field">
+	<columns names="area_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="field_id_fk" type="fk-constr" comparison-type="MATCH SIMPLE"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.field" table="public.crop">
+	<columns names="field_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<constraint name="crop_id_fk" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.crop" table="public.diagnosis">
+	<columns names="crop_id" ref-type="src-columns"/>
+	<columns names="id" ref-type="dst-columns"/>
+</constraint>
+
+<relationship name="farm_address" type="relfk" layer="0"
+	 custom-color="#4723fd"
+	 src-table="public.farm"
+	 dst-table="public.address" reference-fk="address_id_fk"
+	 src-required="false" dst-required="true">
+	<label ref-type="name-label">
+		<position x="-5.72119" y="-26.8857"/>
+	</label>
+</relationship>
+
+<relationship name="address_state" type="relfk" layer="0"
+	 custom-color="#5c0aa5"
+	 src-table="public.address"
+	 dst-table="public.state" reference-fk="state_id_fk"
+	 src-required="false" dst-required="true">
+	<label ref-type="name-label">
+		<position x="29.8343" y="-20.0857"/>
+	</label>
+</relationship>
+
+<relationship name="area_farm" type="relfk" layer="0"
+	 custom-color="#831385"
+	 src-table="public.area"
+	 dst-table="public.farm" reference-fk="farm_id_fk"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="field_area" type="relfk" layer="0"
+	 custom-color="#2cafd5"
+	 src-table="public.field"
+	 dst-table="public.area" reference-fk="area_id_fk"
+	 src-required="false" dst-required="true">
+	<label ref-type="name-label">
+		<position x="-0.44408" y="-0.920995"/>
+	</label>
+</relationship>
+
+<relationship name="crop_field" type="relfk" layer="0"
+	 custom-color="#fcb380"
+	 src-table="public.crop"
+	 dst-table="public.field" reference-fk="field_id_fk"
+	 src-required="false" dst-required="true">
+	<label ref-type="name-label">
+		<position x="7.66682" y="-20.0857"/>
+	</label>
+</relationship>
+
+<relationship name="diagnosis_crop" type="relfk" layer="0"
+	 src-table="public.diagnosis"
+	 dst-table="public.crop" reference-fk="crop_id_fk"
+	 src-required="false" dst-required="false"/>
+
+</dbmodel>

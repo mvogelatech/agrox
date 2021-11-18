@@ -1,0 +1,13 @@
+{
+	"name": "field-map-parser",
+	"version": "0.0.0",
+	"main": "index.js",
+	"license": "UNLICENSED",
+	"private": true,
+	"dependencies": {
+		"@google-cloud/storage": "^5.3.0",
+		"axios": "^0.21.0",
+		"geojson2shp": "^0.3.2",
+		"togeojson": "^0.16.0"
+	}
+}

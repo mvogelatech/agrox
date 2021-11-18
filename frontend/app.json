@@ -1,0 +1,58 @@
+{
+  "expo": {
+    "name": "Agro Explore",
+    "slug": "agro-explore",
+    "platforms": [
+      "android"
+    ],
+    "version": "0.0.7",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#327387"
+    },
+    "updates": {
+      "enabled": false
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.atech.agroexplore",
+      "buildNumber": "1.0.0",
+      "googleServicesFile": "./google-services.json",
+      "config": {
+        "googleMapsApiKey": "AIzaSyCBo9ooS-9V62vwXs-OaXcgbbk4OQQJS8g"
+      }
+    },
+    "android": {
+      "package": "com.atech.agroexplore",
+      "googleServicesFile": "./google-services.json",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDRRZA24n0sAr_RaEW6UATL9oSC87Cv6Io"
+        }
+      },
+      "permissions": [
+        "INTERNET",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ],
+      "useNextNotificationsApi": true,
+      "icon": "./assets/icon.png",
+      "allowBackup": false,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon_android.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "notification": {
+      "icon": "./assets/icon_android.png",
+      "color": "#FFFFFF"
+    },
+    "description": ""
+  }
+}

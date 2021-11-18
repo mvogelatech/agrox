@@ -1,0 +1,1 @@
+{"version":3,"file":"mail-auth-data.js","sourceRoot":"","sources":["../../src/mail/mail-auth-data.ts"],"names":[],"mappings":";;;AAAa,QAAA,MAAM,GAAG,KAAK,CAAC;AACf,QAAA,IAAI,GAAG;IACnB,OAAO,EAAE,SAAS;IAClB,IAAI,EAAE;QACL,IAAI,EAAE,2BAA2B;QACjC,IAAI,EAAE,iBAAiB;KACvB;CACD,CAAC"}

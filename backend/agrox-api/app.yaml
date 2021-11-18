@@ -1,0 +1,26 @@
+runtime: nodejs12
+
+env_variables:
+  PORT: 8080
+  MAP_STATIC_API_KEY: '___MAPS_STATIC_API_KEY___'
+  NOTIFICATIONS_SERVER_KEY: '___NOTIFICATIONS_SERVER_KEY___'
+  NOTIFICATIONS_EXPERIENCE_ID: '___NOTIFICATIONS_EXPERIENCE_ID___'
+  SERVICE_ACCOUNT_KEY: '___SERVICE_ACCOUNT_KEY___'
+  GCP_PROJECT_ID: '___GCP_PROJECT_ID___'
+  VISIONA_API_AUTH_TOKEN: '___VISIONA_API_AUTH_TOKEN___'
+  VISIONA_API_BASE_URL: '___VISIONA_API_BASE_URL___'
+
+instance_class: F1
+
+automatic_scaling:
+  target_cpu_utilization: 0.7
+  min_instances: 1
+  max_instances: 4
+  min_pending_latency: 30ms
+  max_pending_latency: automatic
+  max_concurrent_requests: 50
+
+resources:
+  cpu: 1
+  memory_gb: 1
+  disk_size_gb: 10

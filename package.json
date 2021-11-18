@@ -1,0 +1,140 @@
+{
+	"name": "agroexplore",
+	"version": "0.0.0",
+	"private": true,
+	"engines": {
+		"node": "^12"
+	},
+	"scripts": {
+		"front": "yarn --cwd frontend start",
+		"back": "yarn --cwd backend/agrox-api start:dev",
+		"sync": "yarn install && yarn --cwd frontend install && yarn --cwd backend/agrox-api install && yarn --cwd backend/agrox-api run prisma generate",
+		"sync-use-in-ci-only": "yarn install --frozen-lockfile && yarn --cwd frontend install --frozen-lockfile && yarn --cwd backend/agrox-api install --frozen-lockfile && yarn --cwd backend/agrox-api run prisma generate",
+		"sync-db": "yes | yarn --cwd backend/agrox-api prisma migrate deploy --preview-feature && node seed-database.js",
+		"reset-db": "node reset-database.js && npm run sync-db",
+		"samples-dev": "node seed-sample-data.js backend/database/seeders/sample/dummy",
+		"samples-real": "node seed-sample-data.js backend/database/seeders/sample/real",
+		"lint": "prettier --check . && yarn --cwd frontend compiles && yarn --cwd backend/agrox-api compiles && xo"
+	},
+	"devDependencies": {
+		"eslint-config-xo-react": "^0.23.0",
+		"eslint-config-xo-typescript": "^0.32.0",
+		"eslint-plugin-prettier": "^3.1.4",
+		"eslint-plugin-react": "^7.20.6",
+		"eslint-plugin-react-hooks": "^4.1.0",
+		"prettier": "2.1.1",
+		"prisma": "^3.3.0",
+		"type-fest": "^0.16.0",
+		"typescript": "4.0.2",
+		"xo": "^0.33.0"
+	},
+	"prettier": {
+		"trailingComma": "all",
+		"useTabs": true,
+		"singleQuote": true,
+		"bracketSpacing": true,
+		"printWidth": 155
+	},
+	"xo": {
+		"prettier": true,
+		"extends": "xo-react",
+		"ignore": [
+			"db-dump-example.js",
+			"frontend/babel.config.js",
+			"frontend/components/unused/**/*"
+		],
+		"envs": [
+			"node",
+			"jest"
+		],
+		"rules": {
+			"max-params": "off",
+			"max-depth": "off",
+			"import/extensions": "off",
+			"object-shorthand": "warn",
+			"capitalized-comments": "off",
+			"unicorn/prevent-abbreviations": "off",
+			"unicorn/no-for-loop": "off",
+			"react/function-component-definition": "off",
+			"react/prop-types": "off",
+			"no-await-in-loop": "off",
+			"no-lonely-if": "off",
+			"react-hooks/exhaustive-deps": [
+				"error",
+				{
+					"additionalHooks": "(useBackButton)"
+				}
+			],
+			"linebreak-style": [
+				"error",
+				"unix"
+			],
+			"object-curly-spacing": [
+				"error",
+				"always"
+			],
+			"comma-dangle": [
+				"error",
+				"always-multiline"
+			]
+		},
+		"overrides": [
+			{
+				"files": "backend/**/*",
+				"rules": {
+					"new-cap": "off"
+				}
+			},
+			{
+				"files": "frontend/**/*",
+				"globals": [
+					"__DEV__"
+				],
+				"rules": {
+					"import/namespace": "off"
+				}
+			},
+			{
+				"files": "**/*.ts",
+				"rules": {
+					"@typescript-eslint/no-unused-vars": "warn",
+					"@typescript-eslint/prefer-readonly-parameter-types": "off",
+					"@typescript-eslint/default-param-last": "off",
+					"@typescript-eslint/interface-name-prefix": "off",
+					"@typescript-eslint/explicit-function-return-type": "off",
+					"@typescript-eslint/no-explicit-any": "warn",
+					"@typescript-eslint/restrict-template-expressions": [
+						"error",
+						{
+							"allowNumber": true,
+							"allowBoolean": true,
+							"allowAny": true
+						}
+					],
+					"@typescript-eslint/ban-types": [
+						"error",
+						{
+							"extendDefaults": true,
+							"types": {
+								"TODO-ISSUE-2582": "https://github.com/typescript-eslint/typescript-eslint/issues/2582",
+								"[]": "Don't use the empty array type `[]`, it will only allow empty arrays. Use `SomeType[]` instead.",
+								"[[]]": "Don't use `[[]]`, it would only allow an array with a single element which is an empty array. Use `SomeType[][]` instead.",
+								"[[[]]]": "Don't use `[[[]]]`. Use `SomeType[][][]` instead."
+							}
+						}
+					]
+				}
+			}
+		]
+	},
+	"dependencies": {
+		"@mdi/react": "^1.5.0",
+		"@react-native-picker/picker": "^2.2.0",
+		"ensure-error": "^3.0.1",
+		"fs-jetpack": "^3.1.0",
+		"react-native-modal-dropdown": "^1.0.2",
+		"react-native-picker-select": "^8.0.4",
+		"slonik": "^22.4.12",
+		"slonik-sql-tag-raw": "^1.0.2"
+	}
+}

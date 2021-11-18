@@ -1,0 +1,319 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("AGROX_DB_URL")
+}
+
+model address {
+  id            Int       @id @default(autoincrement())
+  street        String
+  city          String
+  number        Int?
+  km            Int?
+  postal_code   String?
+  complement    String?
+  neighborhood  String?
+  phone_number  String?
+  contact_name  String?
+  state_id      Int
+  mobile_number String?
+  email         String?
+  state         state     @relation(fields: [state_id], references: [id])
+  company       company[]
+  farm          farm[]
+}
+
+model area {
+  id             Int     @id @default(autoincrement())
+  code           Int
+  lat            Float
+  long           Float
+  coordinates    Json?
+  name           String
+  zone           String?
+  state_initials String?
+  city           String?
+  farm_id        Int
+  demand         String?
+  farm           farm    @relation(fields: [farm_id], references: [id])
+  field          field[]
+
+  @@unique([farm_id, name], name: "name_per_farm_un")
+}
+
+model company {
+  id                 Int         @id @default(autoincrement())
+  name               String
+  works_with_drone   Boolean
+  works_with_plane   Boolean
+  works_with_tractor Boolean
+  lat                Float
+  long               Float
+  address_id         Int
+  address            address     @relation(fields: [address_id], references: [id])
+  quotation          quotation[]
+}
+
+model crop {
+  id                    Int         @id @default(autoincrement())
+  crop_type             String
+  variety               String
+  sowing_date           DateTime
+  expected_harvest_date DateTime
+  number                Int         @default(1)
+  is_diagnosis_hired    Boolean?    @default(false)
+  field_id              Int
+  field                 field       @relation(fields: [field_id], references: [id])
+  diagnosis             diagnosis[]
+}
+
+model diagnosis {
+  id               Int            @id @default(autoincrement())
+  report_date      DateTime
+  affected_area_ha Float
+  crop_id          Int?
+  crop             crop?          @relation(fields: [crop_id], references: [id])
+  infestation      infestation[]
+  prescription     prescription[]
+}
+
+model email {
+  id    Int    @id @default(autoincrement())
+  email String
+}
+
+model farm {
+  id                      Int                       @id @default(autoincrement())
+  cnpj                    String?                   @unique
+  social_name             String?                   @unique
+  fantasy_name            String
+  lat                     Float?
+  long                    Float?
+  address_id              Int
+  address                 address                   @relation(fields: [address_id], references: [id])
+  area                    area[]
+  imaging                 imaging[]
+  many_user_has_many_farm many_user_has_many_farm[]
+}
+
+model field {
+  id                                          Int                                           @id @default(autoincrement())
+  code                                        Int
+  area_ha                                     Float
+  lat                                         Float
+  long                                        Float
+  coordinates                                 Json
+  name                                        String
+  image_uri                                   String?
+  area_id                                     Int
+  visiona_area_id                             Int?
+  event                                       String?
+  area                                        area                                          @relation(fields: [area_id], references: [id])
+  crop                                        crop[]
+  many_quotation_modal_package_has_many_field many_quotation_modal_package_has_many_field[]
+
+  @@unique([name, area_id], name: "name_per_area_un")
+}
+
+model imaging {
+  id                   Int      @id @default(autoincrement())
+  directory            String
+  processing_timestamp DateTime
+  imaging_date         DateTime
+  farm_id              Int?
+  farm                 farm?    @relation(fields: [farm_id], references: [id])
+}
+
+model infestation {
+  id           Int       @id @default(autoincrement())
+  area_ha      Float     @default(0)
+  points       Json?
+  diagnosis_id Int
+  plague_id    Int
+  diagnosis    diagnosis @relation(fields: [diagnosis_id], references: [id])
+  plague       plague    @relation(fields: [plague_id], references: [id])
+
+  @@unique([plague_id, diagnosis_id], name: "diagnosis_plague_un")
+}
+
+model many_quotation_modal_package_has_many_field {
+  id_quotation_modal_package Int
+  id_field                   Int
+  field                      field                   @relation(fields: [id_field], references: [id])
+  quotation_modal_package    quotation_modal_package @relation(fields: [id_quotation_modal_package], references: [id])
+
+  @@id([id_quotation_modal_package, id_field])
+}
+
+model many_user_has_many_farm {
+  user_id Int
+  farm_id Int
+  farm    farm @relation(fields: [farm_id], references: [id])
+  user    user @relation(fields: [user_id], references: [id])
+
+  @@id([user_id, farm_id])
+}
+
+model notification {
+  id             Int       @id @default(autoincrement())
+  type           Int
+  body           Json
+  sent_date      DateTime
+  read_date      DateTime?
+  delivered_date DateTime?
+  user_id        Int
+  user           user      @relation(fields: [user_id], references: [id])
+}
+
+model plague {
+  id              Int           @id @default(autoincrement())
+  name            String        @unique
+  display_name    String?
+  color           String
+  in_use          Boolean?      @default(true)
+  relevance_order Int?
+  infestation     infestation[]
+}
+
+model prescription {
+  id                   Int       @id @default(autoincrement())
+  date                 DateTime
+  content              Json      @default("[]")
+  pulverization_method Int
+  author               String?
+  phone_number         String?
+  diagnosis_id         Int
+  diagnosis            diagnosis @relation(fields: [diagnosis_id], references: [id])
+}
+
+model privacy_policy {
+  id                           Int                            @id @default(autoincrement())
+  content                      String
+  publish_date                 DateTime
+  user_accepted_privacy_policy user_accepted_privacy_policy[]
+}
+
+model quotation {
+  id                         Int                     @id @default(autoincrement())
+  response_date              DateTime?
+  expiration_date            DateTime?
+  antecipated_price          Int?
+  cash_price                 Int?
+  delayed_price              Int?
+  company_id                 Int
+  quotation_modal_package_id Int
+  company                    company                 @relation(fields: [company_id], references: [id])
+  quotation_modal_package    quotation_modal_package @relation(fields: [quotation_modal_package_id], references: [id])
+  quotation_checkout         quotation_checkout?
+}
+
+model quotation_checkout {
+  id             Int       @id @default(autoincrement())
+  checkout_date  DateTime
+  selected_price Int
+  quotation_id   Int       @unique
+  quotation      quotation @relation(fields: [quotation_id], references: [id])
+}
+
+model quotation_modal_package {
+  id                                          Int                                           @id @default(autoincrement())
+  pulverization_method                        Int
+  quotation_package_id                        Int
+  quotation_package                           quotation_package                             @relation(fields: [quotation_package_id], references: [id])
+  many_quotation_modal_package_has_many_field many_quotation_modal_package_has_many_field[]
+  quotation                                   quotation[]
+}
+
+model quotation_package {
+  id                       Int                       @id @default(autoincrement())
+  code                     Int
+  request_date             DateTime
+  pulverization_start_date DateTime
+  pulverization_end_date   DateTime
+  quotation_modal_package  quotation_modal_package[]
+}
+
+model role {
+  id        Int         @id @default(autoincrement())
+  name      String?     @unique
+  user_role user_role[]
+}
+
+model seed_revision {
+  id                Int      @id @default(autoincrement())
+  revision          Int      @default(autoincrement())
+  seeding_timestamp DateTime
+  version_major     Int?
+  version_minor     Int?
+  version_patch     Int?
+}
+
+model state {
+  id           Int       @id @default(autoincrement())
+  initials     String    @unique
+  name         String
+  ibge_code    Int?
+  country_code Int?
+  area_code    Json?
+  address      address[]
+}
+
+model terms_and_conditions {
+  id                  Int                   @id @default(autoincrement())
+  content             String
+  publish_date        DateTime
+  user_accepted_terms user_accepted_terms[]
+}
+
+model user {
+  id                           Int                            @id @default(autoincrement())
+  first_name                   String
+  last_name                    String
+  username                     String                         @unique
+  password                     String                         @unique
+  cpf                          String?
+  phone_number                 String
+  email                        String?
+  active                       Boolean
+  creation_date                DateTime
+  access_date                  DateTime
+  update_date                  DateTime
+  yellow_threshold             Float                          @default(10.0)
+  red_threshold                Float                          @default(31.6)
+  fcm_token                    String?
+  avatar                       String?
+  many_user_has_many_farm      many_user_has_many_farm[]
+  notification                 notification[]
+  user_accepted_privacy_policy user_accepted_privacy_policy[]
+  user_accepted_terms          user_accepted_terms[]
+  user_role                    user_role[]
+}
+
+model user_accepted_privacy_policy {
+  id                Int            @id @default(autoincrement())
+  accepted_date     DateTime
+  id_privacy_policy Int
+  id_user           Int
+  privacy_policy    privacy_policy @relation(fields: [id_privacy_policy], references: [id])
+  user              user           @relation(fields: [id_user], references: [id])
+}
+
+model user_accepted_terms {
+  id                      Int                  @id @default(autoincrement())
+  accepted_date           DateTime
+  id_user                 Int
+  id_terms_and_conditions Int
+  terms_and_conditions    terms_and_conditions @relation(fields: [id_terms_and_conditions], references: [id])
+  user                    user                 @relation(fields: [id_user], references: [id])
+}
+
+model user_role {
+  id      Int  @id @default(autoincrement())
+  user_id Int
+  role_id Int
+  role    role @relation(fields: [role_id], references: [id])
+  user    user @relation(fields: [user_id], references: [id])
+}

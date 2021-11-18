@@ -1,0 +1,75 @@
+{
+	"project_info": {
+		"project_number": "787336713843",
+		"firebase_url": "https://agroxdev.firebaseio.com",
+		"project_id": "agroxdev",
+		"storage_bucket": "agroxdev.appspot.com"
+	},
+	"client": [
+		{
+			"client_info": {
+				"mobilesdk_app_id": "1:787336713843:android:eb49d48af302baee56fc06",
+				"android_client_info": {
+					"package_name": "com.atech.agroexplore"
+				}
+			},
+			"oauth_client": [
+				{
+					"client_id": "787336713843-rf875ch6poqtbi7iapmlvetf13rip9ke.apps.googleusercontent.com",
+					"client_type": 3
+				}
+			],
+			"api_key": [
+				{
+					"current_key": "AIzaSyDKyujcD7u9JITG4I23gbfaTN7JGtrFIMA"
+				},
+				{
+					"current_key": "AIzaSyB6n1YFbvYnLu4yax5RUUEGR25V2BzP14g"
+				}
+			],
+			"services": {
+				"appinvite_service": {
+					"other_platform_oauth_client": [
+						{
+							"client_id": "787336713843-rf875ch6poqtbi7iapmlvetf13rip9ke.apps.googleusercontent.com",
+							"client_type": 3
+						}
+					]
+				}
+			}
+		},
+		{
+			"client_info": {
+				"mobilesdk_app_id": "1:787336713843:android:d915e10e807f307456fc06",
+				"android_client_info": {
+					"package_name": "com.atech.agrox"
+				}
+			},
+			"oauth_client": [
+				{
+					"client_id": "787336713843-rf875ch6poqtbi7iapmlvetf13rip9ke.apps.googleusercontent.com",
+					"client_type": 3
+				}
+			],
+			"api_key": [
+				{
+					"current_key": "AIzaSyDKyujcD7u9JITG4I23gbfaTN7JGtrFIMA"
+				},
+				{
+					"current_key": "AIzaSyB6n1YFbvYnLu4yax5RUUEGR25V2BzP14g"
+				}
+			],
+			"services": {
+				"appinvite_service": {
+					"other_platform_oauth_client": [
+						{
+							"client_id": "787336713843-rf875ch6poqtbi7iapmlvetf13rip9ke.apps.googleusercontent.com",
+							"client_type": 3
+						}
+					]
+				}
+			}
+		}
+	],
+	"configuration_version": "1"
+}
